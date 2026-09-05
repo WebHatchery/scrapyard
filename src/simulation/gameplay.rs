@@ -68,19 +68,19 @@ impl ModuleRegistry {
         let mut stats = HashMap::new();
 
         // Load modules config from embedded JSON
-        let json_content = macroquad_toolkit::include_json_str!("../../assets/modules.json");
-        let config: ModulesJson = serde_json::from_str(json_content).unwrap_or_else(|e| {
-            eprintln!(
-                "Warning: Failed to parse modules.json: {}. Using hardcoded defaults.",
-                e
-            );
-            // Return empty so defaults below are used, or panic?
-            // Better to panic in dev if assets are broken.
-            // But let's return a basic struct to avoid crash if possible, but map lookups will fail.
-            ModulesJson {
-                modules: HashMap::new(),
-            }
-        });
+        let config: ModulesJson = macroquad_toolkit::include_json!("../../assets/modules.json")
+            .unwrap_or_else(|e| {
+                eprintln!(
+                    "Warning: Failed to parse modules.json: {}. Using hardcoded defaults.",
+                    e
+                );
+                // Return empty so defaults below are used, or panic?
+                // Better to panic in dev if assets are broken.
+                // But let's return a basic struct to avoid crash if possible, but map lookups will fail.
+                ModulesJson {
+                    modules: HashMap::new(),
+                }
+            });
 
         // Helper to determine module type from string
         fn get_module_type(key: &str) -> Option<ModuleType> {

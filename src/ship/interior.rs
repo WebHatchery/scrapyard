@@ -215,8 +215,9 @@ pub struct ShipInterior {
 
 impl ShipInterior {
     /// Load ship layout from JSON string (embedded at compile time)
-    pub fn from_json(json_str: &str) -> Result<Self, serde_json::Error> {
-        let data: ShipData = serde_json::from_str(json_str)?;
+    pub fn from_json(json_str: &str) -> Result<Self, String> {
+        let data: ShipData =
+            macroquad_toolkit::data_loader::parse_json_labeled("ship layout", json_str)?;
         Ok(Self::from_ship_data(data))
     }
 
@@ -261,7 +262,10 @@ impl ShipInterior {
     pub fn for_variant(variant: usize) -> Self {
         const SHIP_JSON: &str =
             macroquad_toolkit::include_json_str!("../../assets/ships/starter_ship.json");
-        match serde_json::from_str::<ShipData>(SHIP_JSON) {
+        match macroquad_toolkit::data_loader::parse_json_labeled::<ShipData>(
+            "assets/ships/starter_ship.json",
+            SHIP_JSON,
+        ) {
             Ok(mut data) => {
                 match variant % 3 {
                     1 => mirror_horizontal(&mut data),

@@ -7,7 +7,7 @@
   "controls_hint": "Click the game canvas to start, then use keyboard controls",
   "canvas_rendering": "pixelated",
   "about": [
-    "Fix the ship before the swarm arrives. Repair a crashed spaceship on a hostile planet, fight off rogue nanomachines, and escape before you’re overrun."
+    "Repair a crashed spaceship while rogue nanomachines close in. Salvage parts, restore the ship, and escape before the swarm overwhelms you."
   ],
   "controls": [
     {

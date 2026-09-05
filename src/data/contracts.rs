@@ -29,10 +29,7 @@ pub struct ContractModifier {
 impl ContractModifier {
     /// Load all contracts from the embedded JSON (falls back to a single neutral contract).
     pub fn load_all() -> Vec<ContractModifier> {
-        serde_json::from_str(macroquad_toolkit::include_json_str!(
-            "../../assets/contracts.json"
-        ))
-        .unwrap_or_else(|e| {
+        macroquad_toolkit::include_json!("../../assets/contracts.json").unwrap_or_else(|e| {
             eprintln!("Warning: Failed to load contracts.json: {e}. Using neutral contract.");
             vec![ContractModifier {
                 id: "clear_skies".to_string(),
